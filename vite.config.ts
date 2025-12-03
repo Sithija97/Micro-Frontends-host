@@ -1,4 +1,3 @@
-import { PORT } from "./src/constants/env";
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import tailwindcss from "@tailwindcss/vite";
@@ -12,13 +11,15 @@ export default defineConfig({
     federation({
       name: "host_app",
       remotes: {
+        // In dev the remote's entry is served at `/remoteEntry.js`
+        // (not under /assets). Point to the remote dev server on 3001.
         remote_app: "http://localhost:3001/assets/remoteEntry.js",
       },
       shared: ["react", "react-dom"],
     }),
   ],
   server: {
-    port: Number(PORT), // Your desired port
+    port: 3000, // Your desired port
     strictPort: true, // Exit if port is already in use (optional)
     host: true, // Listen on all addresses (optional)
   },
